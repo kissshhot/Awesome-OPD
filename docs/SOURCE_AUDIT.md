@@ -2,13 +2,13 @@
 
 Review date: **2026-10-10**. Inventory baseline: **70fe1f235f59c77650ce535b856d5bdf22de4e9e**.
 
-The baseline README contained **73 unique arXiv papers**: 1 survey, 46 method entries, and 26 related-work entries. Its badge reported 70. All 73 paper identifiers and canonical source URLs are retained; no papers were added. Decorative badges with stale counts were replaced by an auditable total. Original section anchors are retained as compatibility aliases.
+The baseline README contained **73 unique arXiv papers**: 1 survey, 46 method entries, and 26 related-work entries. Its badge reported 70. All 73 paper identifiers and canonical source URLs are retained; no papers were added. Decorative badges with stale counts were replaced by an auditable total. The baseline section names, heading levels, order, paper placement, direction labels, entry order, and original section anchors are preserved.
 
-The organizational reference was inspected at **ecbf5d7**, including its numbered sections, tabular summaries, date/source fields, and verification column. Its topic labels, claims, and blanket confirmation marks were not used as evidence for OPD papers.
+The organizational reference was inspected at **ecbf5d7**. Its tabular presentation, date/source fields, and verification column informed entry formatting. Its numbered categories were not adopted. The OPD repository's original classification is retained, and the reference's claims and confirmation marks are not evidence for OPD papers.
 
 ## Review Method and Limits
 
-Every entry was checked against its arXiv abstract page for identity, current title, first submission date, revision, and the mechanism summarized in the README. **A** denotes that scope. **M** additionally denotes inspection of the method sections linked below. Category placement is an editorial interpretation of the documented sampling process and feedback, not an author-issued certification. Experiments, code, and model weights were not reproduced or audited.
+Every entry was checked against its arXiv abstract page for identity, current title, first submission date, revision, and the mechanism summarized in the README. **A** denotes that scope. **M** additionally denotes inspection of the method sections linked below. Original category placement and direction labels are retained for organizational continuity, not certified by these review statuses. Scope clarifications are editorial interpretations of the documented sampling process and feedback and appear in the affected bilingual summaries. Experiments, code, and model weights were not reproduced or audited.
 
 The source links resolve to the current arXiv entry. The reviewed version and its date are recorded explicitly so that a later revision is not silently treated as already reviewed. Titles below are canonical titles at review time; README labels retain familiar method names. For v1 entries, the revision date repeats the first submission date.
 
@@ -16,15 +16,15 @@ The source links resolve to the current arXiv entry. The reviewed version and it
 
 | Entry | Evidence and resulting change |
 | --- | --- |
-| SSD | The v2 abstract explicitly describes learning from raw model outputs without a teacher or verifier. Moved from black-box OPD to adjacent teacher-free self-training. |
+| SSD | The v2 abstract explicitly describes learning from raw model outputs without a teacher or verifier. Its Methods placement and original Black-Box OPD label are retained; both summaries explicitly state the teacher-free mechanism and strict-OPD boundary. |
 | NPO / NPD | The v2 abstract distinguishes off-policy transfer of verified future-self trajectories (NPO) from on-policy token feedback on learner trajectories (NPD). The row covers both without assigning NPO itself to strict OPD. |
 | Negative RL | Submission history gives 2025-06-02, replacing 2026.06 in the baseline. |
 | TrOPD | Submission history gives 2026-05-31 despite the 2606 identifier. Its summary also retains both on-policy supervision and off-policy prefix guidance. |
-| DDT / On-Policy SFT | Sections 3.1–3.2 describe loss reweighting and hinted dataset rewriting. Kept as distribution-aware SFT rather than a continually refreshed OPD loop. |
-| Lightning OPD | Section 3.2 samples from the SFT checkpoint once and reuses cached teacher probabilities. Labeled an offline approximation, preserving the authors' method name. |
+| DDT / On-Policy SFT | Sections 3.1–3.2 describe loss reweighting and hinted dataset rewriting. The original Methods placement and White-Box OPD label remain; the summaries distinguish this SFT pipeline from a continually refreshed OPD loop. |
+| Lightning OPD | Section 3.2 samples from the SFT checkpoint once and reuses cached teacher probabilities. Both summaries describe the offline approximation while retaining the original placement and direction labels. |
 | HDPO | Sections 3.2–3.3 define the JSD training set using correct privileged-teacher trajectories. The distillation branch is not sampled from the unprivileged student. |
-| SCoRe | Sections 4.1–4.3 use prompted textual teacher corrections, SFT, and later short-horizon RL. Removed the white-box label and the implication that only one intervention is possible per trajectory. |
-| OpenClaw-RL | Sections 3.1–3.2 use a hint-conditioned self-teacher's probabilities and top-K overlap. Replaced the black-box label on the distillation branch with white-box self-distillation. |
+| SCoRe | Sections 4.1–4.3 use prompted textual teacher corrections, SFT, and later short-horizon RL. The original White-Box OPD label remains; both summaries explain that textual interventions do not require teacher logits. They do not imply only one intervention per trajectory. |
+| OpenClaw-RL | Sections 3.1–3.2 use a hint-conditioned self-teacher's probabilities and top-K overlap. Its original direction labels, including Black-Box OPD, remain; both summaries explicitly distinguish the probability-based distillation branch from black-box feedback. |
 | GLM-5 | Section 3.5 places cross-stage OPD at the final stage and replaces the advantage with the teacher-student log-probability gap. Described this specific stage rather than implying joint outcome-reward training throughout. |
 | PBSD | Section 3.2 uses Bayesian evidence for turn-level advantage calibration, preserving reward direction. Distinguished this from directly copying privileged actions. |
 | HAT / TaoLive | Section 3.4 identifies the pre-HSA-SFT base model as the General OPD teacher on student-sampled Tulu instructions. Preserved the distinction between that stage and subsequent harness-augmented RL. |
@@ -112,6 +112,6 @@ All rows were checked on the review date above. Method links identify the additi
 
 ## Maintenance
 
-When a source changes, inspect the new version, update both summaries together, and change the revision and evidence scope in this table. Do not infer strict OPD membership from a paper title or from the presence of an RL objective alone. Preserve the existing source identifier when updating a renamed paper.
+When a source changes, inspect the new version, update both summaries together, and change the revision and evidence scope in this table. Do not infer strict OPD membership from a paper title, an inherited direction label, or the presence of an RL objective alone. Keep the existing classification and source identifier; express scope corrections in both summaries without moving the paper or changing its direction labels.
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for validation steps and [README.md](../README.md) for the catalog.

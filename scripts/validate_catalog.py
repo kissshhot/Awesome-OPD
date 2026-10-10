@@ -64,9 +64,45 @@ def paper_ids(text):
     return set(re.findall(r"https://arxiv\.org/abs/(" + ID + r")(?!\d)", text))
 
 
+def classification(text):
+    """Read the original and enhanced table layouts into the same structure."""
+    auxiliary = {
+        "Table of Contents", "Scope and Terminology", "Reading the Entries",
+        "Contributing", "Organization Reference",
+    }
+    headings, directions, entries = [], [], []
+    path = {}
+    current = None
+    for _, line in body_lines(text):
+        heading = re.match(r"^(#{2,3}) (.+)$", line)
+        if heading:
+            level, title = len(heading[1]), heading[2]
+            current = title
+            path = {depth: name for depth, name in path.items() if depth < level}
+            path[level] = title
+            if title not in auxiliary:
+                headings.append((level, title))
+        if not line.startswith("|"):
+            continue
+        row = cells(line)
+        if current == "Direction Overview" and row[0] != "Direction" and not row[0].startswith("-"):
+            directions.append(row[0])
+        if line.startswith("| **") and "https://arxiv.org/abs/" in line:
+            aid = re.search(r"arxiv\.org/abs/(" + ID + ")", line)[1]
+            name = re.search(r"\*\*(.*?)\*\*", row[0])[1]
+            if "<br>" in row[0]:
+                direction = row[0].split("<br>", 1)[1]
+            elif current == "Methods" and len(row) == 4:
+                direction = row[1]  # Original baseline has a separate Direction column.
+            else:
+                direction = ""
+            entries.append((aid, tuple(path.values()), name, direction))
+    return headings, directions, entries
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--baseline", help="Require the same paper inventory as this Git ref")
+    parser.add_argument("--baseline", help="Require identical paper inventory, classification, directions, and order to this Git ref")
     args = parser.parse_args()
     documents = {path: path.read_text(encoding="utf-8") for path in ROOT.rglob("*.md") if ".git" not in path.parts}
     anchor_map = {path: anchors(text) for path, text in documents.items()}
@@ -115,14 +151,11 @@ def main():
             check(row[4].startswith(("A —", "M —")), f"Invalid evidence scope: {aid}")
             check(row[4][:1] != "M" or "https://arxiv.org/html/" in row[4], f"M evidence has no method link: {aid}")
 
-    papers, topic_counts, ordered = [], Counter(), {}
-    topic = None
+    papers = []
     for number, line in body_lines(readme):
-        heading = re.match(r"^#{2,3} (\d+(?:\.\d+)?)\. ", line)
-        if heading:
-            topic = heading[1]
         if line.startswith("| **") and "https://arxiv.org/abs/" in line:
             row = cells(line)
+            check(len(row) == 6, f"README:{number}: expected six paper columns")
             if len(row) != 6:
                 continue
             match = re.search(r"arxiv\.org/abs/(" + ID + r")\)", row[4])
@@ -131,9 +164,6 @@ def main():
                 continue
             aid = match[1]
             papers.append(aid)
-            check(topic is not None, f"Uncategorized paper: {aid}")
-            topic_counts[topic.split('.')[0] if topic else ''] += 1
-            ordered.setdefault(topic, []).append((row[1], aid))
             try:
                 dt.date.fromisoformat(row[1])
             except ValueError:
@@ -150,20 +180,14 @@ def main():
             if status and aid in audited:
                 check((row[1], status[2], status[1]) == audited[aid], f"README/audit mismatch: {aid}")
         elif CJK.search(line):
-            check(line == "| Paper and tags | First submitted | English | 中文 | Source | Checked |", f"README:{number}: Chinese outside paper summaries")
+            check(line == "| Paper and original direction | First submitted | English | 中文 | Source | Checked |", f"README:{number}: Chinese outside paper summaries")
 
     check(len(papers) == len(set(papers)), "Duplicate paper entries")
     check(set(papers) == set(audited), "README and audit inventories differ")
     total = re.search(r"\*\*(\d+) papers\*\*", readme)
     check(total is not None and int(total[1]) == len(papers), "Displayed paper count is stale")
-    nav = {}
-    for _, line in body_lines(readme):
-        match = re.match(r"\| \[(\d+)\. [^\]]+\]\(#[^)]+\) \| (\d+) \|", line)
-        if match:
-            nav[match[1]] = int(match[2])
-    check(nav == dict(topic_counts), "Topic navigation counts differ from entries")
-    for name, values in ordered.items():
-        check(values == sorted(values, reverse=True), f"Topic {name} is not sorted newest first")
+    headings, directions, entries = classification(readme)
+    groups = Counter(entry[1] for entry in entries)
     check(not CJK.search(audit), "Audit should be in English")
 
     if args.baseline:
@@ -173,14 +197,27 @@ def main():
             check(paper_ids(base.stdout) == set(papers), "Paper inventory differs from baseline")
             for aid in paper_ids(base.stdout):
                 check(f"https://arxiv.org/abs/{aid})" in readme, f"Original paper URL lost: {aid}")
+            base_headings, base_directions, base_entries = classification(base.stdout)
+            check(headings == base_headings, "Original section names, hierarchy, or order changed")
+            check(directions == base_directions, "Direction Overview names or order changed")
+            check([e[0] for e in entries] == [e[0] for e in base_entries], "Original paper order changed")
+            expected = {entry[0]: entry[1:] for entry in base_entries}
+            for aid, path, name, direction in entries:
+                check((path, name, direction) == expected.get(aid), f"Original paper placement, name, or direction changed: {aid}")
+            def toc(text):
+                return text.split("## Table of Contents\n", 1)[1].split("\n## ", 1)[0].split("\n---", 1)[0].strip()
+            check("## Table of Contents\n" in readme, "Missing original Table of Contents")
+            if "## Table of Contents\n" in readme:
+                check(toc(readme) == toc(base.stdout), "Original table-of-contents structure changed")
 
     if errors:
         print('\n'.join(f"FAIL: {error}" for error in errors), file=sys.stderr)
         return 1
-    print(f"PASS: {len(papers)} unique bilingual entries, {len(audited)} audit records, {len(nav)} topics")
-    print(f"PASS: {len(documents)} Markdown files; tables, dates, versions, counts, sorting, local links and anchors")
+    print(f"PASS: {len(papers)} unique bilingual entries, {len(audited)} audit records, {len(groups)} original paper groups")
+    print(f"PASS: {len(documents)} Markdown files; tables, dates, versions, total count, local links and anchors")
     if args.baseline:
         print(f"PASS: all paper identifiers and canonical source URLs preserved from {args.baseline}")
+        print(f"PASS: original classification unchanged from {args.baseline}: section names, hierarchy, order, direction overview, paper placement, names, direction labels, entry order, and navigation")
     print("Manual review still required: source truth, bilingual meaning, and external link access.")
     return 0
 
