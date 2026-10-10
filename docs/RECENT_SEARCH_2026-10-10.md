@@ -14,6 +14,30 @@ General search returned unrelated results, and different arXiv search variants e
 
 All original section names, levels, ordering, direction overview, paper placements, names, direction labels, relative order and navigation remain fixed. Additions are appended to an existing table; no new category is introduced. The [exact addition manifest](ADDITIONS_2026-10-10.json) preserves this constraint in validation.
 
+## Pre-Delivery Recheck
+
+On 2026-10-10, all 41 original arXiv submission histories were reopened. Every first-submission date and reviewed-version date agrees with the source audit and is on or before the cutoff. No entry was removed or moved to the candidate list in this recheck; the totals remain 41 additions and 114 catalog entries. Dates refer to arXiv submission history, not an independently verified first public announcement elsewhere.
+
+| Report | Original v1 submission timestamp (UTC) | Direct OPD evidence |
+| --- | --- | --- |
+| [MiMo-V2.6](https://arxiv.org/abs/2610.11959) | 2026-10-08 13:41:53 | [v1, Section 5.6 and Figure 13](https://arxiv.org/html/2610.11959v1) describe MOPD2 after mixed RL: full student rollouts and student-generated turns from teacher/SFT prefixes receive token-level teacher supervision. Section 7.1 separately describes SFT of MiMo-V2.6-Distill-Qwen-9B; that separate model is not the evidence for the OPD claim. |
+| [SAIL](https://arxiv.org/abs/2610.11451) | 2026-10-08 08:04:22 | [v1, Sections 3.2–3.3](https://arxiv.org/html/2610.11451v1) train specialists, then sample student trajectories and score their tokens with routed teachers under matching contexts. The masked token-level divergence is stated explicitly, without specifying one universal KL direction. |
+
+A further eight original method/analysis passages were sampled again to check scope boundaries:
+
+| Entry | Passage and conclusion |
+| --- | --- |
+| DeepSeek-V4 | [v1, Section 5.1.2, Eq. 29](https://arxiv.org/html/2606.19348v1): full-vocabulary reverse KL on student trajectories merges expert capabilities. Its original record explicitly reports 2026-04-26 despite the 2606 identifier; the recorded date is retained rather than inferred from the identifier. |
+| SenseNova-U1.5 | [v1, Section 3.2, Stage 5](https://arxiv.org/html/2609.11929v1): frozen experts supervise velocity fields at student-generated states, not a token-KL objective. |
+| RIDE | [v1, Sections 3 and 4.1–4.2](https://arxiv.org/html/2609.36484v1): representation residual targets use a shared initialization, architecture and tokenizer. |
+| DF-OPD | [v4, Sections 4.1–4.2](https://arxiv.org/html/2609.14193v4): teacher-generated questions replace the external question pool; the teacher still scores student-generated prefixes. The reviewed v4 was submitted on 2026-10-07. |
+| NP-OPD | [v1, Sections 3.1–3.2](https://arxiv.org/html/2610.07874v1): batches mix student and negative-policy trajectories; the all-negative endpoint is not strictly on-policy for the student. |
+| ReCal | [v1, Section 2.2](https://arxiv.org/html/2610.11332v1): pruning calibration is evaluated through subsequent SFT and refreshed student-rollout OPD; it is not presented as a new OPD loss. |
+| OPD Skills vs. Knowledge | [v1, Section 4](https://arxiv.org/html/2610.09639v1): the prefix-source/KL-direction comparison supports a reverse-KL-specific limitation; forward KL improves factual transfer in the reported experiments. |
+| SEA-LION-v4.8 | [v3, Section 4.2 and Table 4](https://arxiv.org/html/2609.18310v3): the recipe mixes offline SFT examples with online student trajectories and teacher-log-probability feedback. |
+
+Coverage across the complete addition pass is **41/41 original abstracts and submission records plus 41/41 named method or analysis sections**. The eleven system/infrastructure reports have their OPD sections inspected, and the separate DiffusionOPSD method report was inspected in its original PDF, Sections 3.1–3.5 (pp. 6–10), with authors checked on p. 28. No addition relies solely on a secondary summary. This is targeted reading of original full-text sources, not a claim that all reports were read cover to cover, and no experiments were reproduced.
+
 ## Added Papers and Reports
 
 Paper links below are canonical primary sources. Exact author credits, version dates, and method-section links are in the [source audit](SOURCE_AUDIT.md). Full English/Chinese introductions are in the [catalog](../README.md).
