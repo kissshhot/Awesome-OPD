@@ -6,7 +6,7 @@ Contributions should make this reading list easier to navigate and more reliable
 
 Use the [README scope criteria](README.md#scope-and-terminology) to identify who generates the training trajectories and where teacher feedback is applied. Distinguish current-student sampling from fixed offline data, privileged-teacher trajectories, and teacher-free self-training. If a paper contains multiple regimes, describe the relevant branch explicitly.
 
-Preserve the existing classification: Surveys, Direction Overview, Methods, and Related Work with its six named subtopics. Keep section names, heading levels, section order, paper placement, per-paper direction labels, and existing entry order unchanged when editing the catalog. Do not create a second row for the same arXiv identifier.
+Preserve the existing classification: Surveys, Direction Overview, Methods, and Related Work with its six named subtopics. Keep section names, heading levels, section order, existing paper placement, per-paper direction labels, and existing entry order unchanged when editing the catalog. Append verified additions to the most relevant existing section and use the existing direction vocabulary. Do not create a second row for the same arXiv identifier.
 
 When an original direction label has a conceptual boundary, explain the actual sampling process and feedback in both summaries without moving or relabeling the paper. For example, SSD retains its original Methods placement and Black-Box OPD label, while its summary states that it is teacher-free and does not meet the strict teacher-feedback criterion. A factual clarification does not authorize a taxonomy change.
 
@@ -19,6 +19,8 @@ When an original direction label has a conceptual boundary, explain the actual s
 5. For any experimental number, include the model, benchmark/version, metric, comparison, and the table or section supporting it. Distinguish percentage points from relative percentages. Do not mix versions or repeat a historical leaderboard claim as a current ranking.
 
 These statuses describe source inspection, not experimental reproduction. If a source cannot be read, state the limitation rather than claiming verification. A proposed unverified addition should remain in the contribution discussion until its identity and scope can be established.
+
+For recent-literature updates, state a search cutoff and priority window, record queries and excluded or unverified candidates, and verify author credits as well as dates. Use the latest version available by the cutoff, not a later revision. Record revisions under the existing identifier. For technical reports, read the actual OPD section and distinguish a new distillation method from a system that uses OPD; a citation to OPD alone is not enough. The [2026-10-10 search record](docs/RECENT_SEARCH_2026-10-10.md) shows the evidence trail for the current additions.
 
 ## Language and Entry Format
 
@@ -45,14 +47,14 @@ python3 scripts/validate_catalog.py
 git diff --check
 ```
 
-For this revision, verify exact preservation of the original inventory and classification against the repository baseline:
+For the current authorized additions, verify preservation of the original inventory and classification plus the explicit addition manifest:
 
 ```sh
-python3 scripts/validate_catalog.py --baseline 70fe1f2
+python3 scripts/validate_catalog.py --baseline 70fe1f2 --additions docs/ADDITIONS_2026-10-10.json --as-of 2026-10-10
 ```
 
-Baseline mode compares section names, heading levels, section order, the direction overview, each paper's section and direction labels, and entry order, as well as paper identifiers and canonical links. A separately authorized future addition or taxonomy change needs an explicitly reviewed new baseline; do not weaken these checks to hide an unintended reclassification. Update the displayed total only when the inventory changes.
+Baseline mode compares section names, heading levels, section order, the direction overview, every original paper's section and direction labels, and relative entry order, as well as paper identifiers and canonical links. Without `--additions`, it still requires the exact original inventory. With `--additions`, it accepts only the manifest's exact additional identifiers, display names, directions, and existing section paths; it still rejects a moved or missing original entry, a new category, or an unlisted addition. Extend the reviewed manifest explicitly for a future authorized addition rather than resetting the baseline or weakening preservation checks. Update the displayed total only when the inventory changes.
 
-The validator also checks table shapes, duplicate papers, dates, audit versions/statuses, summary language presence, numeric parity, relative file links, and local anchors. It does not check scientific truth, translation meaning, or remote availability. Read both summaries side by side and open every changed external link, recording access limitations separately from broken links.
+The validator also checks table shapes, duplicate papers, valid dates no later than the cutoff (today UTC by default), audit versions/statuses, summary language presence, numeric parity, relative file links, and local anchors. It does not check scientific truth, translation meaning, or remote availability. Read both summaries side by side and open every changed external link, recording access limitations separately from broken links.
 
 Before submitting a contribution, preview the Markdown tables, review the diff for unrelated edits, and describe what changed with the precise source evidence. Preserve existing valid paper links; a title change or a new revision is not a new paper.

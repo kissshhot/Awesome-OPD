@@ -1,0 +1,342 @@
+{
+  "review_date": "2026-10-10",
+  "baseline": "70fe1f235f59c77650ce535b856d5bdf22de4e9e",
+  "description": "Authorized literature additions; original taxonomy, identifiers, placement, labels and relative order remain fixed.",
+  "entries": [
+    {
+      "id": "2601.18734",
+      "path": [
+        "Methods"
+      ],
+      "name": "Self-Distilled Reasoner / OPSD",
+      "direction": "PI-based OPSD"
+    },
+    {
+      "id": "2606.19348",
+      "path": [
+        "Methods"
+      ],
+      "name": "DeepSeek-V4",
+      "direction": "White-Box OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2606.15007",
+      "path": [
+        "Methods"
+      ],
+      "name": "Nemotron 3 Ultra",
+      "direction": "Agent OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2606.31984",
+      "path": [
+        "Methods"
+      ],
+      "name": "GR2",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2607.13399",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "Demystifying OPD",
+      "direction": ""
+    },
+    {
+      "id": "2608.06296",
+      "path": [
+        "Methods"
+      ],
+      "name": "u-OPSD",
+      "direction": "PI-based OPSD"
+    },
+    {
+      "id": "2608.09745",
+      "path": [
+        "Methods"
+      ],
+      "name": "SR-OPSD",
+      "direction": "PI-based OPSD"
+    },
+    {
+      "id": "2608.13040",
+      "path": [
+        "Methods"
+      ],
+      "name": "LOPD",
+      "direction": "PI-based OPSD · Agent OPD"
+    },
+    {
+      "id": "2608.14144",
+      "path": [
+        "Methods"
+      ],
+      "name": "S²VOPD",
+      "direction": "Multimodal OPD"
+    },
+    {
+      "id": "2608.24646",
+      "path": [
+        "Methods"
+      ],
+      "name": "DiffusionOPSD",
+      "direction": "Image-Generation OPD"
+    },
+    {
+      "id": "2609.00791",
+      "path": [
+        "Methods"
+      ],
+      "name": "Instella-MoE",
+      "direction": "White-Box OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2609.02998",
+      "path": [
+        "Methods"
+      ],
+      "name": "TGOPD",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2609.04108",
+      "path": [
+        "Methods"
+      ],
+      "name": "OPD-then-RL",
+      "direction": "White-Box OPD · CoT OPD"
+    },
+    {
+      "id": "2609.04172",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "One Training Example",
+      "direction": ""
+    },
+    {
+      "id": "2609.05198",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "OPD Data Efficiency and Selection",
+      "direction": ""
+    },
+    {
+      "id": "2609.08183",
+      "path": [
+        "Methods"
+      ],
+      "name": "NeoHorse-1",
+      "direction": "White-Box OPD · Agent OPD"
+    },
+    {
+      "id": "2609.08341",
+      "path": [
+        "Methods"
+      ],
+      "name": "TV-OPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.08368",
+      "path": [
+        "Methods"
+      ],
+      "name": "Miles v0.1",
+      "direction": "White-Box OPD · OPD × RL Hybrid · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2609.10154",
+      "path": [
+        "Methods"
+      ],
+      "name": "CompassOPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.11127",
+      "path": [
+        "Methods"
+      ],
+      "name": "KuaiRP",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.11929",
+      "path": [
+        "Methods"
+      ],
+      "name": "SenseNova-U1.5",
+      "direction": "Multimodal OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2609.14193",
+      "path": [
+        "Methods"
+      ],
+      "name": "DF-OPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.16937",
+      "path": [
+        "Methods"
+      ],
+      "name": "GammaOPD",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2609.18310",
+      "path": [
+        "Methods"
+      ],
+      "name": "SEA-LION-v4.8",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.20511",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "When EOS Tokens Disagree",
+      "direction": ""
+    },
+    {
+      "id": "2609.20784",
+      "path": [
+        "Methods"
+      ],
+      "name": "RetireOPD",
+      "direction": "White-Box OPD · OPD × RL Hybrid · Agent OPD"
+    },
+    {
+      "id": "2609.36484",
+      "path": [
+        "Methods"
+      ],
+      "name": "RIDE",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2609.38025",
+      "path": [
+        "Methods"
+      ],
+      "name": "Dr. OPD",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2609.38360",
+      "path": [
+        "Methods"
+      ],
+      "name": "SCOUT",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2610.07874",
+      "path": [
+        "Methods"
+      ],
+      "name": "NP-OPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2610.08448",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "Cross-Tokenizer Supervision Reliability",
+      "direction": ""
+    },
+    {
+      "id": "2610.09639",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "OPD Skills vs. Knowledge",
+      "direction": ""
+    },
+    {
+      "id": "2610.11332",
+      "path": [
+        "Methods"
+      ],
+      "name": "ReCal",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2610.11423",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "PAMA",
+      "direction": ""
+    },
+    {
+      "id": "2610.11451",
+      "path": [
+        "Methods"
+      ],
+      "name": "SAIL",
+      "direction": "Agent OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2610.11519",
+      "path": [
+        "Methods"
+      ],
+      "name": "Residual Advantage / Co-RA",
+      "direction": "White-Box OPD · OPD × RL Hybrid"
+    },
+    {
+      "id": "2610.11529",
+      "path": [
+        "Methods"
+      ],
+      "name": "ReTeach",
+      "direction": "White-Box OPD · PI-based OPSD"
+    },
+    {
+      "id": "2610.11659",
+      "path": [
+        "Methods"
+      ],
+      "name": "DIAL-OPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2610.11959",
+      "path": [
+        "Methods"
+      ],
+      "name": "MiMo-V2.6",
+      "direction": "Agent OPD · Industrial Multi-Teacher"
+    },
+    {
+      "id": "2610.11989",
+      "path": [
+        "Methods"
+      ],
+      "name": "MetaOPD",
+      "direction": "White-Box OPD"
+    },
+    {
+      "id": "2610.12367",
+      "path": [
+        "Methods"
+      ],
+      "name": "SGUID",
+      "direction": "White-Box OPD · PI-based OPSD"
+    }
+  ]
+}

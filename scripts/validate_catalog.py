@@ -3,6 +3,7 @@
 
 import argparse
 import datetime as dt
+import json
 import re
 import subprocess
 import sys
@@ -102,8 +103,12 @@ def classification(text):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--baseline", help="Require identical paper inventory, classification, directions, and order to this Git ref")
+    parser.add_argument("--baseline", help="Preserve this Git ref's inventory, classification, directions, and order")
+    parser.add_argument("--additions", type=Path, help="Explicit manifest of authorized additions; requires --baseline")
+    parser.add_argument("--as-of", type=dt.date.fromisoformat, default=dt.datetime.now(dt.timezone.utc).date(), help="Reject submission, revision, and review dates after this YYYY-MM-DD cutoff (default: today UTC)")
     args = parser.parse_args()
+    if args.additions and not args.baseline:
+        parser.error("--additions requires --baseline")
     documents = {path: path.read_text(encoding="utf-8") for path in ROOT.rglob("*.md") if ".git" not in path.parts}
     anchor_map = {path: anchors(text) for path, text in documents.items()}
     for path, text in documents.items():
@@ -127,6 +132,14 @@ def main():
 
     readme = documents[ROOT / "README.md"]
     audit = documents[ROOT / "docs/SOURCE_AUDIT.md"]
+    for label, text in (("README", readme), ("Audit", audit)):
+        review = re.search(r"(?:Source review: |Review date: \*\*)(\d{4}-\d{2}-\d{2})", text)
+        check(review is not None, f"{label}: missing review date")
+        if review:
+            try:
+                check(dt.date.fromisoformat(review[1]) <= args.as_of, f"{label}: future review date")
+            except ValueError:
+                check(False, f"{label}: invalid review date")
     audited = {}
     for number, line in body_lines(audit):
         if line.startswith('| <a id="paper-'):
@@ -146,10 +159,13 @@ def main():
                 try:
                     first, revised = dt.date.fromisoformat(row[2]), dt.date.fromisoformat(revision[2])
                     check(first <= revised, f"Revision precedes submission: {aid}")
+                    check(revised <= args.as_of, f"Future submission or revision: {aid}")
                 except ValueError:
                     check(False, f"Invalid audit date: {aid}")
             check(row[4].startswith(("A —", "M —")), f"Invalid evidence scope: {aid}")
-            check(row[4][:1] != "M" or "https://arxiv.org/html/" in row[4], f"M evidence has no method link: {aid}")
+            if row[4].startswith("M") and revision:
+                method_link = r"https://arxiv\.org/(?:html|pdf)/" + re.escape(aid + revision[1]) + r"(?=[)#?]|$)"
+                check(re.search(method_link, row[4]), f"M method link does not match reviewed version: {aid}")
 
     papers = []
     for number, line in body_lines(readme):
@@ -165,7 +181,7 @@ def main():
             aid = match[1]
             papers.append(aid)
             try:
-                dt.date.fromisoformat(row[1])
+                check(dt.date.fromisoformat(row[1]) <= args.as_of, f"Future README submission: {aid}")
             except ValueError:
                 check(False, f"Invalid first submission date: {aid}")
             check(bool(re.search(r"[A-Za-z]", row[2])) and not CJK.search(row[2]), f"Missing English summary: {aid}")
@@ -194,16 +210,36 @@ def main():
         base = subprocess.run(["git", "show", f"{args.baseline}:README.md"], cwd=ROOT, text=True, capture_output=True)
         check(base.returncode == 0, f"Cannot read baseline: {args.baseline}")
         if base.returncode == 0:
-            check(paper_ids(base.stdout) == set(papers), "Paper inventory differs from baseline")
-            for aid in paper_ids(base.stdout):
+            original_ids = paper_ids(base.stdout)
+            approved = {}
+            if args.additions:
+                try:
+                    manifest = json.loads(args.additions.read_text(encoding="utf-8"))
+                    check(dt.date.fromisoformat(manifest["review_date"]) <= args.as_of, "Future additions review date")
+                    resolved = subprocess.run(["git", "rev-parse", args.baseline], cwd=ROOT, text=True, capture_output=True)
+                    check(resolved.returncode == 0 and resolved.stdout.strip() == manifest["baseline"], "Additions manifest baseline does not match --baseline")
+                    for item in manifest["entries"]:
+                        aid = item["id"]
+                        check(re.fullmatch(ID, aid) is not None, f"Invalid addition identifier: {aid}")
+                        check(aid not in approved, f"Duplicate addition identifier: {aid}")
+                        check(aid not in original_ids, f"Addition duplicates baseline paper: {aid}")
+                        approved[aid] = (tuple(item["path"]), item["name"], item["direction"])
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    check(False, f"Invalid additions manifest: {exc}")
+            check(original_ids | set(approved) == set(papers), "Paper inventory differs from baseline plus explicit additions")
+            for aid in original_ids:
                 check(f"https://arxiv.org/abs/{aid})" in readme, f"Original paper URL lost: {aid}")
             base_headings, base_directions, base_entries = classification(base.stdout)
             check(headings == base_headings, "Original section names, hierarchy, or order changed")
             check(directions == base_directions, "Direction Overview names or order changed")
-            check([e[0] for e in entries] == [e[0] for e in base_entries], "Original paper order changed")
+            check([e[0] for e in entries if e[0] in original_ids] == [e[0] for e in base_entries], "Original paper order changed")
             expected = {entry[0]: entry[1:] for entry in base_entries}
+            original_paths = {entry[1] for entry in base_entries}
+            for aid, (path, _, _) in approved.items():
+                check(path in original_paths, f"Addition uses a new category: {aid}")
+            expected.update(approved)
             for aid, path, name, direction in entries:
-                check((path, name, direction) == expected.get(aid), f"Original paper placement, name, or direction changed: {aid}")
+                check((path, name, direction) == expected.get(aid), f"Paper placement, name, or direction differs from baseline/manifest: {aid}")
             def toc(text):
                 return text.split("## Table of Contents\n", 1)[1].split("\n## ", 1)[0].split("\n---", 1)[0].strip()
             check("## Table of Contents\n" in readme, "Missing original Table of Contents")
@@ -215,9 +251,12 @@ def main():
         return 1
     print(f"PASS: {len(papers)} unique bilingual entries, {len(audited)} audit records, {len(groups)} original paper groups")
     print(f"PASS: {len(documents)} Markdown files; tables, dates, versions, total count, local links and anchors")
+    print(f"PASS: submission, revision, and review dates do not exceed {args.as_of}")
     if args.baseline:
         print(f"PASS: all paper identifiers and canonical source URLs preserved from {args.baseline}")
         print(f"PASS: original classification unchanged from {args.baseline}: section names, hierarchy, order, direction overview, paper placement, names, direction labels, entry order, and navigation")
+        if args.additions:
+            print(f"PASS: {len(approved)} additions exactly match the reviewed manifest and use existing categories")
     print("Manual review still required: source truth, bilingual meaning, and external link access.")
     return 0
 
