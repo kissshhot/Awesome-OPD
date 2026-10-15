@@ -1,5 +1,5 @@
 {
-  "review_date": "2026-10-10",
+  "review_date": "2026-10-15",
   "baseline": "70fe1f235f59c77650ce535b856d5bdf22de4e9e",
   "description": "Authorized literature additions; original taxonomy, identifiers, placement, labels and relative order remain fixed.",
   "entries": [
@@ -337,6 +337,15 @@
       ],
       "name": "SGUID",
       "direction": "White-Box OPD · PI-based OPSD"
+    },
+    {
+      "id": "2610.19789",
+      "path": [
+        "Related Work",
+        "Related Work: OPD Mechanism Analysis"
+      ],
+      "name": "More Methods, Better Agents?",
+      "direction": ""
     }
   ]
 }

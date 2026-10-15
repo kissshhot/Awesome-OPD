@@ -1,8 +1,8 @@
 # Source Audit
 
-Review date: **2026-10-10**. Inventory baseline: **70fe1f235f59c77650ce535b856d5bdf22de4e9e**.
+Review date: **2026-10-15**. Inventory baseline: **70fe1f235f59c77650ce535b856d5bdf22de4e9e**.
 
-The baseline README contained **73 unique arXiv papers**: 1 survey, 46 method entries, and 26 related-work entries. Its badge reported 70. All 73 paper identifiers and canonical source URLs are retained. This update adds **41** verified papers and technical reports, for **114** total entries. Decorative badges with stale counts were replaced by an auditable total. The baseline section names, heading levels, order, paper placement, direction labels, relative order of original entries, and original section anchors are preserved. New entries are appended within existing sections.
+The baseline README contained **73 unique arXiv papers**: 1 survey, 46 method entries, and 26 related-work entries. Its badge reported 70. All 73 paper identifiers and canonical source URLs are retained. This update adds **42** verified papers and technical reports, for **115** total entries. Decorative badges with stale counts were replaced by an auditable total. The baseline section names, heading levels, order, paper placement, direction labels, relative order of original entries, and original section anchors are preserved. New entries are appended within existing sections.
 
 The organizational reference was inspected at **ecbf5d7**. Its tabular presentation, date/source fields, and verification column informed entry formatting. Its numbered categories were not adopted. The OPD repository's original classification is retained, and the reference's claims and confirmation marks are not evidence for OPD papers.
 
@@ -36,9 +36,11 @@ The cutoff is **2026-10-10** and the priority window is **2026-08-10 through 202
 
 The [addition manifest](ADDITIONS_2026-10-10.json) pins the exact new identifiers and placement against the original baseline. Original entries, directions, and navigation remain unchanged. NP-OPD's mixed/off-policy sampling, ReCal's preparation stage, reward-guided diffusion self-targets, and system-report applications are described explicitly rather than equated with one uniform OPD objective.
 
+Targeted author-suggested addition on **2026-10-15**: arXiv:2610.19789 was checked against its v1 abstract and submission history (2026-10-14), with author credits and the official code link verified. It is an empirical evaluation, recorded as **A** evidence under OPD Mechanism Analysis. This single-paper addition does not extend the earlier literature search or re-review the other entries.
+
 ## Per-Paper Evidence
 
-All rows were checked on the review date above. Method links identify the additional evidence used for **M** rows. For **A** rows, the abstract and submission history are the evidence; no full-paper review is implied.
+Existing rows were checked on 2026-10-10; the arXiv:2610.19789 addition was checked on 2026-10-15. Method links identify the additional evidence used for **M** rows. For **A** rows, the abstract and submission history are the evidence; no full-paper review is implied.
 
 | Source | Canonical title | First submitted | Reviewed revision | Evidence |
 | --- | --- | --- | --- | --- |
@@ -156,6 +158,7 @@ All rows were checked on the review date above. Method links identify the additi
 | <a id="paper-2610-11959"></a>[2610.11959](https://arxiv.org/abs/2610.11959) | MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement<br>Authors: Xiaomi LLM-Core Team: Zongming Qiao et al. | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [§5.6, Figure 13, §7.1](https://arxiv.org/html/2610.11959v1) |
 | <a id="paper-2610-11989"></a>[2610.11989](https://arxiv.org/abs/2610.11989) | MetaOPD: Meta-Learned Token Weighting for On-Policy Distillation<br>Authors: Zipeng Wang, Xinpeng Dong, Yuefan Wang, Pingchen Lu, Xian Wei, Kun Kuang, Fei Wu, Zhongxiang Dai, Min Zhang | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [Sections 3.1–3.2 and Algorithm 1](https://arxiv.org/html/2610.11989v1) |
 | <a id="paper-2610-12367"></a>[2610.12367](https://arxiv.org/abs/2610.12367) | Which Skill to Distill? SGUID: Selecting a Compact Skill Bank for Model-Skill Co-Evolution<br>Authors: Yuhan Liu, Xiyao Ma, Zhongkai Sun, Xu Han, Chengyuan Ma, Benjamin Z. Yao, Chenlei Guo | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [Sections 2.2–2.3 and 3](https://arxiv.org/html/2610.12367v1) |
+| <a id="paper-2610-19789"></a>[2610.19789](https://arxiv.org/abs/2610.19789) | More Methods, Better Agents? A Reality Check on Self-Distillation in Agentic Reinforcement Learning<br>Authors: Linhao Zhong, Bozhen Fang, Xuehao Wang, Duochao Shi, Zekai Luo, Guangming Yao, Yi Yuan, Hao Chen, Jingdong Chen, Chunhua Shen | 2026-10-14 | v1 · 2026-10-14 | A — abstract and submission history |
 
 ## Maintenance
 
