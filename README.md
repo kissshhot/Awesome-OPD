@@ -2,7 +2,7 @@
 
 A curated reading list on **on-policy distillation**, **on-policy self-distillation**, and related post-training research. OPD learns from teacher feedback on student-generated trajectories to reduce the training–inference distribution mismatch of offline imitation.
 
-**114 papers** · **Source review: 2026-10-10** · **English and Chinese paper summaries**
+**115 papers** · **Source review: 2026-10-15** · **English and Chinese paper summaries**
 
 [Table of contents](#table-of-contents) · [Scope and terminology](#scope-and-terminology) · [Source audit](docs/SOURCE_AUDIT.md) · [Recent additions](docs/RECENT_SEARCH_2026-10-10.md) · [Contributing](CONTRIBUTING.md)
 
@@ -208,6 +208,7 @@ The original six topics and all 26 related-work entries are retained in their or
 | **Cross-Tokenizer Supervision Reliability** | 2026-10-06 | Studies cross-tokenizer OPD at strict one-to-one aligned positions on student rollouts. Reverse KL over a student-selected shared-vocabulary subset retains most gains in the tested pairs, while adding span log-probability MSE expands coverage but hurts accuracy; gradient diagnostics probe the conflicting supervision. | 研究学生轨迹上严格一对一对齐位置的跨分词器 OPD。在所测试的师生组合中，对学生选出的共享词表子集计算反向 KL 可保留大部分收益；加入片段对数概率 MSE 虽扩大覆盖范围，却降低准确率，梯度诊断进一步分析其中的监督冲突。 | [arXiv 2610.08448](https://arxiv.org/abs/2610.08448) | [M · v1](docs/SOURCE_AUDIT.md#paper-2610-08448) |
 | **OPD Skills vs. Knowledge** | 2026-10-07 | Separates factual recall from compositional skill using controlled teacher training, then varies prefix source and KL direction. In the tested settings, reverse-KL OPD transfers compositional skill more reliably than new facts; forward KL improves factual transfer, so the result does not establish a limitation of every OPD objective. | 通过受控教师训练区分事实记忆与组合技能，再分别改变前缀来源和 KL 方向。在所测试的设置中，反向 KL OPD 对组合技能的迁移比对新事实更可靠；正向 KL 改善了事实迁移，因此该结果并不表明所有 OPD 目标都具有同样的限制。 | [arXiv 2610.09639](https://arxiv.org/abs/2610.09639) | [M · v1](docs/SOURCE_AUDIT.md#paper-2610-09639) |
 | **PAMA** | 2026-10-08 | Audits whether a prompt participated in OPD using changes between pre- and post-distillation student distributions. Combines teacher-alignment gain, student drift, and entropy alignment under full-distribution or top-K teacher access; studies membership evidence rather than a new training objective. | 利用蒸馏前后学生分布的变化，审计提示是否参与过 OPD。结合教师对齐增益、学生漂移和熵对齐，支持教师完整分布或 top-K 访问；研究的是成员身份的证据，而非新的训练目标。 | [arXiv 2610.11423](https://arxiv.org/abs/2610.11423) | [M · v1](docs/SOURCE_AUDIT.md#paper-2610-11423) |
+| **More Methods, Better Agents?** | 2026-10-14 | Compares self-distillation methods against GRPO in multi-turn agent environments, evaluating performance, training stability, and computational cost. Finds no method consistently outperforms GRPO across the tested settings. | 在多轮智能体环境中比较自蒸馏方法与 GRPO，评估性能、训练稳定性和计算成本。发现没有方法能在所测试的设置中始终优于 GRPO。 | [arXiv 2610.19789](https://arxiv.org/abs/2610.19789) · [Code](https://github.com/aim-uofa/Self-Distillation-AgentRL) | [A · v1](docs/SOURCE_AUDIT.md#paper-2610-19789) |
 
 ### Related Work: Two-Stage Policy Decoupling
 
