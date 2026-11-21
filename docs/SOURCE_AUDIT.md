@@ -36,6 +36,8 @@ The cutoff is **2026-10-10** and the priority window is **2026-08-10 through 202
 
 The [addition manifest](ADDITIONS_2026-10-10.json) pins the exact new identifiers and placement against the original baseline. Original entries, directions, and navigation remain unchanged. NP-OPD's mixed/off-policy sampling, ReCal's preparation stage, reward-guided diffusion self-targets, and system-report applications are described explicitly rather than equated with one uniform OPD objective.
 
+The 2026-11-22 single-paper update adds MultiAgent-OPD under Methods. It was checked against arXiv v2, with the existing inventory and classifications retained. The catalog now contains **115** entries.
+
 ## Per-Paper Evidence
 
 All rows were checked on the review date above. Method links identify the additional evidence used for **M** rows. For **A** rows, the abstract and submission history are the evidence; no full-paper review is implied.
@@ -156,6 +158,7 @@ All rows were checked on the review date above. Method links identify the additi
 | <a id="paper-2610-11959"></a>[2610.11959](https://arxiv.org/abs/2610.11959) | MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement<br>Authors: Xiaomi LLM-Core Team: Zongming Qiao et al. | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [§5.6, Figure 13, §7.1](https://arxiv.org/html/2610.11959v1) |
 | <a id="paper-2610-11989"></a>[2610.11989](https://arxiv.org/abs/2610.11989) | MetaOPD: Meta-Learned Token Weighting for On-Policy Distillation<br>Authors: Zipeng Wang, Xinpeng Dong, Yuefan Wang, Pingchen Lu, Xian Wei, Kun Kuang, Fei Wu, Zhongxiang Dai, Min Zhang | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [Sections 3.1–3.2 and Algorithm 1](https://arxiv.org/html/2610.11989v1) |
 | <a id="paper-2610-12367"></a>[2610.12367](https://arxiv.org/abs/2610.12367) | Which Skill to Distill? SGUID: Selecting a Compact Skill Bank for Model-Skill Co-Evolution<br>Authors: Yuhan Liu, Xiyao Ma, Zhongkai Sun, Xu Han, Chengyuan Ma, Benjamin Z. Yao, Chenlei Guo | 2026-10-08 | v1 · 2026-10-08 | M — abstract/history + [Sections 2.2–2.3 and 3](https://arxiv.org/html/2610.12367v1) |
+| <a id="paper-2610-23234"></a>[2610.23234](https://arxiv.org/abs/2610.23234) | MultiAgent-OPD: End-to-End Training of Hierarchical Multi-Agent Systems with On-Policy Distillation<br>Authors: Yuhan Sun, Jiaxin Zhao, Yongdong Luo, Yibo Hu, Meiguang Jin, Junfeng Ma, Weixun Wang, Weihang Pan, Zhongan Bi | 2026-10-16 | v2 · 2026-10-20 | M — abstract/history + [Sections 3.2–3.3, Eqs. 2–5](https://arxiv.org/html/2610.23234v2#S3.SS3) |
 
 ## Maintenance
 

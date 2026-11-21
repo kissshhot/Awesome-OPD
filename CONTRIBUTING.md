@@ -50,7 +50,7 @@ git diff --check
 For the current authorized additions, verify preservation of the original inventory and classification plus the explicit addition manifest:
 
 ```sh
-python3 scripts/validate_catalog.py --baseline 70fe1f2 --additions docs/ADDITIONS_2026-10-10.json --as-of 2026-10-10
+python3 scripts/validate_catalog.py --baseline 70fe1f2 --additions docs/ADDITIONS_2026-10-10.json --as-of 2026-11-22
 ```
 
 Baseline mode compares section names, heading levels, section order, the direction overview, every original paper's section and direction labels, and relative entry order, as well as paper identifiers and canonical links. Without `--additions`, it still requires the exact original inventory. With `--additions`, it accepts only the manifest's exact additional identifiers, display names, directions, and existing section paths; it still rejects a moved or missing original entry, a new category, or an unlisted addition. Extend the reviewed manifest explicitly for a future authorized addition rather than resetting the baseline or weakening preservation checks. Update the displayed total only when the inventory changes.

@@ -1,5 +1,5 @@
 {
-  "review_date": "2026-10-10",
+  "review_date": "2026-11-22",
   "baseline": "70fe1f235f59c77650ce535b856d5bdf22de4e9e",
   "description": "Authorized literature additions; original taxonomy, identifiers, placement, labels and relative order remain fixed.",
   "entries": [
@@ -337,6 +337,14 @@
       ],
       "name": "SGUID",
       "direction": "White-Box OPD · PI-based OPSD"
+    },
+    {
+      "id": "2610.23234",
+      "path": [
+        "Methods"
+      ],
+      "name": "MultiAgent-OPD",
+      "direction": "White-Box OPD · OPD × RL Hybrid · Agent OPD"
     }
   ]
 }
